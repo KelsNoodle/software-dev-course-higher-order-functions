@@ -43,7 +43,8 @@ Step-by-Step:
 2. Use the `filter()` method to apply the callback to the array.
 3. Return the filtered result.
 */
-
+const filterProducts = products.filter(products => products.inStock);
+//console.log(filterProducts);
 
 /*
 🔹 Task 2: Transform Product Names
@@ -55,7 +56,17 @@ Step-by-Step:
 2. Extract and transform the `name` property to uppercase.
 3. Store the result in a new variable.
 */
+const updateUpperCase = products.map(product => {
+  return {
+    ...product,
+    name: product.name.toUpperCase()
+  };
+});
+//console.log(updateUpperCase);
 
+
+//const upperCaseProductName = products.map(products => products.name.toUpperCase())
+//console.log(upperCaseProductName);
 
 /*
 🔹 Task 3: Generate Discounted Prices
@@ -71,6 +82,22 @@ Step-by-Step:
 4. Print the array of products to verify the new property and value have been added to each product object.
 */
 
+function applyDiscount(discountPercent){
+  return function(product){
+    product.salePrice = product.price - (product.price * discountPercent / 100);
+    
+  }
+}
+
+const applyFiveDiscount = applyDiscount(5);
+
+products.forEach(applyFiveDiscount);
+
+//console.log(products);
+
+//const applyDiscount = products.forEach(products => products.price {
+//  return discountedPrice = products.price  - (products.price * .25)
+//} )
 
 /*
 🔹 Task 4: Calculate Total Inventory Value
@@ -83,12 +110,21 @@ Step-by-Step:
 3. Store the total in a new variable.
 */
 
+const totalInvetoryValue = products.reduce((accumulateValue, currentValue) => {
+  if(currentValue.inStock){
+    return accumulateValue + currentValue.price;
+  }
+  return accumulateValue;
+}, 0);
+
+//console.log(totalInvetoryValue);
+
 
 // ============================================
 // 🧪 Console Test Your Work
 // ============================================
 
-// console.log("Filtered products:", ...);
-// console.log("Uppercased names:", ...);
-// console.log("Discounted products:", ...);
-// console.log("Total value in stock:", ...);
+console.log("Filtered products:", filterProducts);
+console.log("Uppercased names:", updateUpperCase);
+console.log("Discounted products:", products);
+console.log("Total value in stock:", totalInvetoryValue);
